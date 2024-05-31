@@ -1,0 +1,109 @@
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ ECN-Bits • Java™ library for OpenJDK on Linux ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+See ../README for what this is all about,
+and ../android/README for the implementation this one is derived from.
+
+Welcome to the OpenJDK/Linux implementation! This library is
+specific to the Linux kernel, including WSL 2, because it’s
+been written for Android originally, but should also work on
+WSL 1, with the usual caveat of setting outgoing bits there.
+
+This library has been tested with OpenJDK 11 but should run on
+JRE 8 and above but below 15, which changes the DatagramSocket
+implementation in an incompatible way.
+
+This library mostly offers the following entry points:
+• de.telekom.llcto.ecn_bits.android.lib.Bits
+• de.telekom.llcto.ecn_bits.android.lib.ECNBitsDatagramChannel
+  (extends DatagramChannel) via static open() factory method
+• de.telekom.llcto.ecn_bits.android.lib.ECNBitsDatagramSocket
+  (extends DatagramSocket) via new and constructors
+
+Both ECNBitsDatagramSocket and the ECNBitsDatagramChannel.socket()
+result derive from AbstractECNBitsDatagramSocket (which itself
+derives from DatagramSocket). Both AbstractECNBitsDatagramSocket
+and ECNBitsDatagramChannel implement AbstractECNBitsDatagramReceiver
+with the methods to inspect the IP traffic class octet of the last
+packet received or to measure congestion in the background:
+
+The user can either retrieve, for each received datagram,
+the IP traffic class byte (using the retrieveLastTrafficClass
+method on the socket), or by using the startMeasurement method
+and then calling the getMeasurement method periodically, e.g.
+every 20 ms, retrieving the congestion factor from its result.
+
+For either AbstractECNBitsDatagramSocket implementation, when
+reusing DatagramPacket instances, (re‑)setting their length
+before each receive call is mandatory.
+
+This library contains Main classes to demonstrate how it can
+be used; these don’t disturb normal operation. The library can
+just be added as Maven dependency and be used within arbitrary
+libraries or programs but, because the JNI dependency must be
+compiled targetting the correct CPU architecture, it must be
+(re‑)compiled suiting the system eventually running it.
+
+Normal Maven invocations are used to compile this, that is:
+
+	$ mvn clean package #[install]
+
+Maven shells out compilation of the JNI library; for this,
+mksh and cmake as well as a C and C++ compiler and headers
+for the JDK and the system libc must be made available (and
+it builds on Linux only obviously).
+
+It’d probably be best if API for retrieving the traffic class
+could be added to OpenJDK directly.
+
+Note that IPv6 addresses look ugly in Java because it violates
+RFC 5952 § 4.2, and besides that RFC 5952 § 4.3 also is ugly.
+They will be legible enough, though (for our purposes anyway).
+
+┌──────────┐
+│ Examples │
+└──────────┘
+
+These examples require having built the library first, as they
+depend on tools used to compile, and the JNI search path is set
+to where the compiled DLL is placed by CMake.
+
+‣ CHANNEL
+
+Run the DatagramChannel client: ./channel.sh [--opts] host port
+
+This will start an interactive GUI in which the user can send
+packets (by pressing Enter, Alt-S or clicking the S̲end button),
+switch between the host’s IP addresses, and change what traffic
+class is set on outgoing packets. The M̲easure button shows how
+many received packets were in congestion since its last usage
+respectively since the destination IP last switched.
+
+Should GUI issues occur use --metal to avoid the Motif theme or
+--theme=<theme> to set one (use --theme to list the installed
+themes) or --theme=system to not set the look and feel.
+
+‣ SOCKET
+
+Run the DatagramSocket client: ./client.sh host post [tc]
+
+Arguments are:
+• host: IP address or hostname (DNS-resolved) of server to send to
+  (multiple results are attempted in order)
+• port: (server) port to send to
+• tc: traffic class for sent packets, default: ECT0
+  valid: NO, ECT0, ECT1, CE or a decimal, octal (leading 0) or
+  hexadecimal (leading 0x) integer between 0 and 255, inclusive
+
+The client will send a “hello” packet to the server. After that
+it waits for up to a second for responses, which it displays as
+the packet data received together with their ECN bits and local
+timestamps. (Timestamps are in UTC.) This was modelled after the
+C/CLI example (see ../c/README) and can run against its server,
+or any UDP echo server (e.g. inetd daytime), although *those*
+won’t set varying ECN bits on the response package.
+
+When downloading the JAR extract the scripts (client.sh, etc.)
+using jar or unzip and put them together into the same directory
+and ensure your local Maven repository cache has all dependencies.

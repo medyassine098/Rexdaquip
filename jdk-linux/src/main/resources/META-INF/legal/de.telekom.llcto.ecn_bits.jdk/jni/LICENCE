@@ -1,0 +1,99 @@
+This library is published primarily under The MirOS Licence (MirBSD):
+
+# Copyright © 2020, 2021
+#	mirabilos <t.glaser@tarent.de>
+# Licensor: Deutsche Telekom
+#
+# Provided that these terms and disclaimer and all copyright notices
+# are retained or reproduced in an accompanying document, permission
+# is granted to deal in this work without restriction, including un‐
+# limited rights to use, publicly perform, distribute, sell, modify,
+# merge, give away, or sublicence.
+#
+# This work is provided “AS IS” and WITHOUT WARRANTY of any kind, to
+# the utmost extent permitted by applicable law, neither express nor
+# implied; without malicious intent or gross negligence. In no event
+# may a licensor, author or contributor be held liable for indirect,
+# direct, other damage, loss, or other issues arising in any way out
+# of dealing in the work, even if advised of the possibility of such
+# damage or existence of a defect, except proven that it results out
+# of said person’s immediate fault when using the work as intended.
+
+Parts of the library are additionally published under these terms:
+
+ * Copyright © 2020, 2021
+ *      mirabilos <t.glaser@tarent.de>
+ * Copyright © 2014
+ *      The Android Open Source Project
+ * Copyright © 1996, 2000, 2001, 2002, 2006, 2007, 2011, 2012, 2013,
+ *             2015, 2018
+ *      Oracle and/or its affiliates
+ * Licensor: Deutsche Telekom
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+	The file COPYING contains the full text of this licence.
+
+ * As a special exception, the copyright holders of this library give
+ * you permission to link this library with independent modules to
+ * produce an executable, regardless of the license terms of these
+ * independent modules, and to copy and distribute the resulting
+ * executable under terms of your choice, provided that you also meet,
+ * for each linked independent module, the terms and conditions of the
+ * license of that module.  An independent module is a module which is
+ * not derived from or based on this library.  If you modify this
+ * library, you may extend this exception to your version of the
+ * library, but you are not obligated to do so.  If you do not wish
+ * to do so, delete this exception statement from your version.
+
+The native code additionally contains a nativehelper module “nh”:
+
+ * Copyright © 2020
+ *      mirabilos <t.glaser@tarent.de>
+ * Licenced by Deutsche Telekom
+ *
+ * Copyright (C) 2006, 2019 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+
+	The file LICENSE-2.0 contains the full text of this licence.
+
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+
+The NOTICE file of libnativehelper contains the copyright notice with
+“(c) 2005–2008 The Android Open Source Project”, the licence header,
+and a copy of the terms and conditions, which are identical to these
+in the full text (see above) of the licence.
+
+All three licences must be adhered to: the Apache 2 licence for the
+“nh” module *only*; both MirBSD and GPLv2 with Classpath Exception
+for the OpenJDK‑/Android-libcore-derived code in this project, and
+just The MirOS Licence for the rest of this project.
+
+Furthermore, this library contains as a resource the TrueType font
+file Inconsolatazi4varlquAH.ttf used for the DatagramChannel Swing
+example application. This font file is Copyright ©
+	2021 mirabilos <t.glaser@tarent.de>
+	2017 mirabilos <m@mirbsd.org>
+	2013–2016 Michael Sharpe <msharpe@ucsd.edu>
+	2006–2012 Raph Levien <raph.levien@gmail.com>
+and covered by both the SIL Open Font License 1.1 reproduced in the
+file OFLv1.1 and The MirOS Licence (see above); both licences must
+be adhered to. (An eventual Inconsolatus QL [MirOS] release is ex‐
+pected to supercede this file.)
